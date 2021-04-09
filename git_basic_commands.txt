@@ -1,0 +1,11 @@
+git fetch
+git pull origin main
+git branch
+
+git checkout *existing branch from remote*
+git checkout -b new_branch_locally
+
+git status
+git add .
+git commit -m "short description about the changes"
+git push origin {worked branch name}
