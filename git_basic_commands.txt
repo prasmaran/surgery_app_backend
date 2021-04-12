@@ -5,7 +5,14 @@ git branch
 git checkout *existing branch from remote*
 git checkout -b new_branch_locally
 
+-- staging area --
 git status
 git add .
 git commit -m "short description about the changes"
 git push origin {worked branch name}
+
+
+-- merging --
+git checkout main
+git merge {worked branch} -- remote repository
+git push origin master
