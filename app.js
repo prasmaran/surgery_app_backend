@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const { urlencoded } = require('body-parser')
-// Thina made me do it
+
 const app = express()
 const port = process.env.PORT || 5000
 
@@ -16,6 +16,14 @@ const pool = mysql.createPool({
     user            : 'root',
     password        : '',
     database        : 'node_crud_testing'
+})
+
+// Testing API route
+app.get('/api',(req,res) => {
+    res.json({
+        success: 1,
+        message: "This is to show that REST API is working ...." 
+    })
 })
 
 // Get all users 
@@ -52,7 +60,7 @@ app.get('/:id', (req, res) => {
             if (!err) {
                 res.send(rows)
             } else {
-                console.log(err)
+                console.log(`Error message : ${err.message}`)
             }
         })
     })
@@ -124,6 +132,49 @@ app.put('', (req, res) => {
         })
 
         console.log(req.body)
+    })
+})
+
+// ----------------- GET PROGRESS ENTRY DATA ---------------------- //
+
+// Get all progress entry data 
+app.get('/books/progress', (req, res) => {
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+        console.log(`connection as id ${connection.threadId}`)
+
+        // query(sqlString, callback)
+        connection.query('SELECT * FROM progress_book_entry', (err, rows) => {
+            connection.release() // release the connection to pool
+
+            if (!err) {
+                res.send({"result" : rows})
+            } else {
+                console.log(err)
+            }
+        })
+    })
+})
+
+// Get progress entry by entryID
+// Why cannot retrieve individual data?
+app.get('/books/progess/:entryid', (req, res) => {
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+        //console.log(`connection as id ${connection.threadId}`)
+
+        // query(sqlString, callback)
+        connection.query('SELECT * FROM progress_book_entry WHERE entryID = ?', [req.params.entryid], (err, rows) => {
+            connection.release() // release the connection to pool
+
+            if (!err) {
+                res.send(rows)
+            } else {
+                console.log(err)
+            }
+        })
     })
 })
 
