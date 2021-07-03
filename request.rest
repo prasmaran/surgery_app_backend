@@ -1,0 +1,40 @@
+GET http://localhost:5000/users/getAll
+//Content-Type: application/json
+
+#####
+
+GET http://localhost:5000/books/progress/getAll
+//Content-Type: application/json
+
+#####
+
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+    "username": "Naruto",
+    "ic_number": "55555",
+    "gender": "M",
+    "type": "R",
+    "password": "Naruto"
+}
+
+#####
+
+POST http://localhost:5000/user/auth
+Content-Type: application/json
+
+{
+    "username": "Naruto",
+    "password": "Naruto"
+}
+
+#####
+
+GET http://localhost:5000/books/progress/getAll
+//Content-Type: application/json
+
+#####
+
+
+
