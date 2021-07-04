@@ -1,40 +1,68 @@
-GET http://localhost:5000/users/getAll
+#############################################
+# User Master Requests #
+GET http://localhost:5000/user/getAll
 //Content-Type: application/json
 
 #####
-
-GET http://localhost:5000/books/progress/getAll
-//Content-Type: application/json
-
-#####
-
 POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "Naruto",
-    "ic_number": "55555",
+    "username": "Kugan",
+    "ic_number": "0392267106",
     "gender": "M",
-    "type": "R",
-    "password": "Naruto"
+    "type": "D",
+    "password": "Kugan"
 }
 
 #####
-
 POST http://localhost:5000/user/auth
 Content-Type: application/json
 
 {
-    "username": "Naruto",
-    "password": "Naruto"
+    "username": "Kugan",
+    "password": "Kugan"
 }
 
-#####
+##############################################
+# Progress Book Request #
 
 GET http://localhost:5000/books/progress/getAll
-//Content-Type: application/json
 
 #####
+GET http://localhost:5000/books/progress/getAll
 
 
+############################################
+# User Master Requests #
 
+GET http://localhost:5000/dummyUser/getAll
+
+###
+GET http://localhost:5000/dummyUser/getOne/2
+Content-Type: application/json
+
+###
+DELETE  http://localhost:5000/dummyUser/delete/1
+Content-Type: application/json
+
+###
+POST  http://localhost:5000/dummyUser/create
+Content-Type: application/json
+
+{
+    "name": "Sasuke",
+    "email": "sasuke@konoha.com",
+    "phoneNumber": "0122134231"
+}
+
+###
+PUT http://localhost:5000/dummyUser/update
+Content-Type: application/json
+
+{
+    "id":"7",
+    "name": "Sasuke Uchiha",
+    "email": "sasuke@konoha.com",
+    "phoneNumber": "0122134231"
+}
