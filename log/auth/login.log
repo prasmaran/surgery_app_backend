@@ -1,0 +1,9 @@
+15-07-2021 02:55:07 info: User : Elwin successfully logged in
+15-07-2021 02:56:16 info: User : Elwin with wrong password combination
+15-07-2021 03:00:44 : info ➔ User : Elwin with wrong password combination
+15-07-2021 03:01:20 : error ➔ User : Elwin with wrong password combination
+15-07-2021 03:02:35 info ➔ User : Elwin successfully logged in
+15-07-2021 03:05:26 info: User Elwin successfully logged in
+15-07-2021 03:05:49 error: User Elwin with wrong password combination
+15-07-2021 03:19:13 info: User Hinata successfully logged in
+15-07-2021 03:19:46 error: User Hinata with wrong password combination

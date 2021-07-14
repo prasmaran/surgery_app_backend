@@ -1,6 +1,6 @@
 const express = require('express')
 const { urlencoded } = require('body-parser')
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 const { title } = require('process')
 const port = process.env.APP_PORT || 5000
 
@@ -18,12 +18,12 @@ const dummyUserRoutes = require('./src/routes/dummyUserRoutes.js')
 const userMasterRoutes = require('./src/routes/userMasterRoutes.js')
 const progressBookRoutes = require('./src/routes/progressBookRoutes')
 
+// Logger config
+const { serverLogger, userCreateLogger, userLoginLogger } = require('./config/loggerUpdated.js')
+
 // ---------- Testing EJS ----------------
-app.get('/api', (req, res) => {
-    res.json({
-        success: 1,
-        message: "This is to show that REST API is working ...."
-    })
+app.get('/', (req, res) => {
+    res.send('<h3>This is to show that my app is working ....</h3>')
 })
 
 app.get('/upload', (req, res) => {
@@ -38,4 +38,8 @@ app.use('/user', userMasterRoutes)
 app.use('/dummyUser', dummyUserRoutes)
 
 
-app.listen(port, () => console.log(` Server listenining on port ${port} ...`))
+app.listen(port, () => {
+    console.log(` Server listenining on port ${port} ...`)
+    serverLogger.info(`Server listenining on port ${port}`)
+    
+})

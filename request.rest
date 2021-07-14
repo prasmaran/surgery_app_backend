@@ -3,25 +3,25 @@
 GET http://localhost:5000/user/getAll
 //Content-Type: application/json
 
-#####
+###
 POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "Kugan",
+    "username": "Hinata",
     "ic_number": "0392267106",
-    "gender": "M",
-    "type": "D",
-    "password": "Kugan"
+    "gender": "F",
+    "type": "P",
+    "password": "Hinata"
 }
 
-#####
+###
 POST http://localhost:5000/user/auth
 Content-Type: application/json
 
 {
-    "username": "Kugan",
-    "password": "Kugan"
+    "username": "Hinata",
+    "password": "Hinata1"
 }
 
 ##############################################
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 GET http://localhost:5000/books/progress/getAll
 
-#####
+###
 GET http://localhost:5000/books/progress/getAll
 
 

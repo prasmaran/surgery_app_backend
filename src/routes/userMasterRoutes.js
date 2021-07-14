@@ -2,6 +2,8 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const router = express.Router()
 const pool = require('../../config/config.js')
+const { userCreateLogger, userLoginLogger } = require('../../config/loggerUpdated.js')
+const jwt = require('jsonwebtoken')
 
 // ---------- Regitser User ----------------
 /**
@@ -44,15 +46,18 @@ router.post('/register', async (req, res) => {
                 let query = 'INSERT INTO user_master SET ?'
                 connection.query(query, params, (err, rows) => {
                     connection.release()
-                    let response = `New user details with name ${username} has been added.`
+                    let response = `New user details with {name: ${username} and ID: ${rows.insertId}} has been added.`
 
                     if (!err) {
                         res.send({
                             success: true,
                             message: response
                         })
+                        console.log(rows)
+                        userCreateLogger.info(response)
                     } else {
                         console.log(err.message)
+                        userCreateLogger.error(err.message)
                     }
                 })
             })
@@ -92,21 +97,30 @@ router.post('/auth', async (req, res) => {
                         // try with phone and emulator
                         // to test the server blocking
                         if (await bcrypt.compare(password, results[0].password)) {
+                            const user = { name: username }
+                            const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN)
+                            const response = `User ${results[0].m_name} successfully logged in`
                             res.send({
                                 success: true,
-                                message: `User : ${results[0].m_name} successfully logged in`,
-                                result: results
+                                message: response,
+                                result: results,
+                                accessToken: accessToken
                                 // return only the first user object
                             })
+                            userLoginLogger.info(response)
                             console.log(results)
                         } else {
+                            const response = `User ${results[0].m_name} with wrong password combination`
                             res.send({
                                 success: false,
                                 message: `Incorrect Username or Password`,
                                 result: err
                             })
+                            userLoginLogger.error(response)
+                            
                         }
                     } else {
+                        //logger.log(`error`,`Username or Registration ID not found`)
                         res.send({
                             success: false,
                             message: `Username or Registration ID not found`,
