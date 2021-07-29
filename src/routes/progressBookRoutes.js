@@ -3,9 +3,10 @@ const router = express.Router()
 const multer = require('multer')
 const pool = require('../../config/config.js')
 const upload = require('../../config/fileStorage.js')
+const { checkToken } = require('../../auth/token_validation.js')
 
 // Server path
-const localhost = 'http://10.210.29.2:5000/'
+const localhost = 'http://192.168.1.107:5000/'
 const hostspot = "http://192.168.43.119/"
 
 // ------- Multipart form ----------
@@ -23,7 +24,7 @@ var multipleUpload = upload.fields([
 ])
 
 // ------ API Route to upload new entry form --------
-router.post('/upload', multipleUpload, (req, res) => {
+router.post('/upload', checkToken, multipleUpload, (req, res) => {
     if (req.files.image) {
 
         console.log(req.files)
@@ -90,7 +91,7 @@ router.post('/upload', multipleUpload, (req, res) => {
 })
 
 // ----- Get all progress entry data ---------- 
-router.get('/getAll', (req, res) => {
+router.get('/getAll', checkToken, (req, res) => {
 
     pool.getConnection((err, connection) => {
         if (err) throw err
@@ -101,9 +102,18 @@ router.get('/getAll', (req, res) => {
             connection.release() // release the connection to pool
 
             if (!err) {
-                res.send({ "result": rows })
+                res.send({
+                    success: true,
+                    message: "Progress book for the user",  
+                    result : rows 
+                })
             } else {
                 console.log(err)
+                res.send({
+                    success: false,
+                    message: "Could not fetch the progress book",  
+                    result : null 
+                })
             }
         })
     })

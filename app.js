@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/upload', (req, res) => {
+    const filePath = __dirname
+    console.log(filePath)
     res.render('upload')
 })
 
