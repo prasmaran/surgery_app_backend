@@ -49,6 +49,7 @@ const dummy_user_delete = (req, res) => {
 
             if (!err) {
                 res.send(`User with record ID: ${[req.params.id]} has been deleted.`)
+                console.log(rows)
             } else {
                 console.log(err)
             }
@@ -71,6 +72,7 @@ const dummy_user_create = (req, res) => {
 
             if (!err) {
                 res.send(`User with record name: ${params.name} has been added.`)
+                console.log(rows)
             } else {
                 console.log(err)
             }

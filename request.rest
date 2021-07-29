@@ -21,13 +21,14 @@ Content-Type: application/json
 
 {
     "username": "Hinata",
-    "password": "Hinata1"
+    "password": "Hinata"
 }
 
 ##############################################
 # Progress Book Request #
 
 GET http://localhost:5000/books/progress/getAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFoYXRoaXIiLCJpYXQiOjE2Mjc0OTg4MjIsImV4cCI6MTYyNzY3MTYyMn0.phgNWUd85vSaXgb1InjBgteDWGWRMi_TP26nYuRV_8U
 
 ###
 GET http://localhost:5000/books/progress/getAll
@@ -43,7 +44,7 @@ GET http://localhost:5000/dummyUser/getOne/2
 Content-Type: application/json
 
 ###
-DELETE  http://localhost:5000/dummyUser/delete/1
+DELETE  http://localhost:5000/dummyUser/delete/11
 Content-Type: application/json
 
 ###
@@ -51,8 +52,8 @@ POST  http://localhost:5000/dummyUser/create
 Content-Type: application/json
 
 {
-    "name": "Sasuke",
-    "email": "sasuke@konoha.com",
+    "name": "Tobirama",
+    "email": "tobirama@dead.com",
     "phoneNumber": "0122134231"
 }
 

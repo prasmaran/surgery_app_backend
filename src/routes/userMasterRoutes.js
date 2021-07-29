@@ -90,7 +90,7 @@ router.post('/auth', async (req, res) => {
     if (username && password) {
         pool.getConnection((err, connection) => {
             if (err) throw err
-            connection.query('SELECT * FROM user_master WHERE m_name = ?', [username], async (err, results, fields) => {
+            connection.query('SELECT * FROM user_master WHERE m_name = BINARY ?', [username], async (err, results, fields) => {
                 if (!err) {
                     if (results.length > 0) {
                         // const isValidPass = bcrypt.compareSync(password, hash);
@@ -98,7 +98,7 @@ router.post('/auth', async (req, res) => {
                         // to test the server blocking
                         if (await bcrypt.compare(password, results[0].password)) {
                             const user = { name: username }
-                            const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN)
+                            const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, { expiresIn: "2 days" })
                             const response = `User ${results[0].m_name} successfully logged in`
                             res.send({
                                 success: true,
