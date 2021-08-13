@@ -12,7 +12,8 @@ const hostspot = "http://192.168.43.119/"
 // ------- Multipart form ----------
 //----------------------------------
 var multipleUpload = upload.fields([
-    { name: 'image', maxCount: 1 },
+    { name: 'masterUserId_fk' },
+    { name: 'image', maxCount: 1 },    
     { name: 'title' },
     { name: 'description' },
     { name: 'fluid_drain' },
@@ -30,6 +31,8 @@ router.post('/upload', checkToken, multipleUpload, (req, res) => {
         console.log(req.files)
 
         // Values from the form
+        // testnig masteruserid_fk
+        const masterUserId_fk = req.body.masterUserId_fk
         const uploadedImage = localhost + req.files.image[0].filename
         const uploadedTitle = req.body.title
         const uploadedDescription = req.body.description
@@ -42,6 +45,7 @@ router.post('/upload', checkToken, multipleUpload, (req, res) => {
 
         // Params to insert into MySQL table
         const params = {
+            masterUserId_fk: masterUserId_fk,
             progressImage: uploadedImage,
             progressTitle: uploadedTitle,
             progressDescription: uploadedDescription,
@@ -51,7 +55,7 @@ router.post('/upload', checkToken, multipleUpload, (req, res) => {
             quesSwelling: uploadedSwelling,
             quesOdour: uploadedOdour,
             quesFever: uploadedFever,
-            doctorAssigned: "Assigning doctor soon...",
+            doctorAssigned: 0
         }
 
         console.log(params)
@@ -67,15 +71,16 @@ router.post('/upload', checkToken, multipleUpload, (req, res) => {
             let query = 'INSERT INTO progress_book_entry SET ?'
             connection.query(query, params, (err, rows) => {
                 connection.release()
-                let response = `New image details with id '${rows.insertId}' has been added.`
+                
 
                 if (!err) {
+                    let response = `New image details with ID: ${rows.insertId} has been added.`
                     res.send({
                         success: true,
                         message: response
                     })
                 } else {
-                    console.log(err.message)
+                    console.log(err)
                 }
             })
 
@@ -90,18 +95,19 @@ router.post('/upload', checkToken, multipleUpload, (req, res) => {
     }
 })
 
-// ----- Get all progress entry data ---------- 
-router.get('/getAll', checkToken, (req, res) => {
+// ----- Get all progress entry data by userId ---------- 
+router.get('/getAll/:userId', checkToken, (req, res) => {
 
     pool.getConnection((err, connection) => {
         if (err) throw err
-        console.log(`connection as id ${connection.threadId}`)
+        console.log(`connection as id ${connection.threadId}`) 
 
         // query(sqlString, callback)
-        connection.query('SELECT * FROM progress_book_entry WHERE flag = 1 ORDER BY dateCreated DESC', (err, rows) => {
+        connection.query('SELECT * FROM progress_book_entry WHERE masterUserId_fk = ? AND flag = 1 ORDER BY dateCreated DESC', [req.params.userId],(err, rows) => {
             connection.release() // release the connection to pool
 
             if (!err) {
+                console.log("Number of photos returned: " + Object.keys(rows).length)
                 res.send({
                     success: true,
                     message: "Progress book for the user",  
