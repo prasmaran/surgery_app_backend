@@ -8,11 +8,11 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "Hinata",
-    "ic_number": "0392267106",
-    "gender": "F",
+    "username": "Usain",
+    "ic_number": "12321",
+    "gender": "M",
     "type": "P",
-    "password": "Hinata"
+    "password": "Usain"
 }
 
 ###
@@ -20,15 +20,15 @@ POST http://localhost:5000/user/auth
 Content-Type: application/json
 
 {
-    "username": "Hinata",
-    "password": "Hinata"
+    "username": "Kugan",
+    "password": "Kugan"
 }
 
 ##############################################
 # Progress Book Request #
 
-GET http://localhost:5000/books/progress/getAll
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFoYXRoaXIiLCJpYXQiOjE2Mjc0OTg4MjIsImV4cCI6MTYyNzY3MTYyMn0.phgNWUd85vSaXgb1InjBgteDWGWRMi_TP26nYuRV_8U
+GET http://localhost:5000/books/progress/getAll/15
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2MjgyMTEyMzMsImV4cCI6MTYyODM4NDAzM30.DR-RSOqw9_hcjB0Vb8Iz549LtWeZnKkiGloNiosGqUw
 
 ###
 GET http://localhost:5000/books/progress/getAll
@@ -52,7 +52,7 @@ POST  http://localhost:5000/dummyUser/create
 Content-Type: application/json
 
 {
-    "name": "Tobirama",
+    "name": "Susan",
     "email": "tobirama@dead.com",
     "phoneNumber": "0122134231"
 }
@@ -67,3 +67,8 @@ Content-Type: application/json
     "email": "sasuke@konoha.com",
     "phoneNumber": "0122134231"
 }
+
+############################################
+# Doctor Requests #
+GET http://localhost:5000/doctor/getAllPatients/21
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2MjgyMTEyMzMsImV4cCI6MTYyODM4NDAzM30.DR-RSOqw9_hcjB0Vb8Iz549LtWeZnKkiGloNiosGqUw

@@ -74,7 +74,8 @@ const dummy_user_create = (req, res) => {
                 res.send(`User with record name: ${params.name} has been added.`)
                 console.log(rows)
             } else {
-                console.log(err)
+                res.send(`Error: ${err.sqlMessage.slice(0,-16)} found. Please try again.`)
+                console.log(err.sqlMessage)
             }
         })
 

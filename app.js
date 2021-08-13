@@ -17,6 +17,7 @@ app.set('view engine', 'ejs')
 const dummyUserRoutes = require('./src/routes/dummyUserRoutes.js')
 const userMasterRoutes = require('./src/routes/userMasterRoutes.js')
 const progressBookRoutes = require('./src/routes/progressBookRoutes')
+const doctorRoutes = require('./src/routes/doctorRoutes.js')
 
 // Logger config
 const { serverLogger, userCreateLogger, userLoginLogger } = require('./config/loggerUpdated.js')
@@ -38,6 +39,8 @@ app.use('/books/progress', progressBookRoutes)
 app.use('/user', userMasterRoutes)
 // ---------- Dummy users routes -----------
 app.use('/dummyUser', dummyUserRoutes)
+// ---------- Doctor routes ----------------
+app.use('/doctor', doctorRoutes)
 
 
 app.listen(port, () => {

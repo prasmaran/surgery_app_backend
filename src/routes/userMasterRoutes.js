@@ -46,18 +46,21 @@ router.post('/register', async (req, res) => {
                 let query = 'INSERT INTO user_master SET ?'
                 connection.query(query, params, (err, rows) => {
                     connection.release()
-                    let response = `New user details with {name: ${username} and ID: ${rows.insertId}} has been added.`
-
                     if (!err) {
+                        let response = `New user details with {name: ${username} and ID: ${rows.insertId}} has been added.`
                         res.send({
                             success: true,
                             message: response
                         })
                         console.log(rows)
                         userCreateLogger.info(response)
-                    } else {
-                        console.log(err.message)
-                        userCreateLogger.error(err.message)
+                    } else {            
+                        console.log(err)
+                        res.send({
+                            success: false,
+                            message: `Error: ${err.sqlMessage} found. Please try again.`
+                        })
+                        userCreateLogger.error(`${err.message} for User: ${username}`)
                     }
                 })
             })
