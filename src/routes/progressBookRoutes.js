@@ -6,7 +6,7 @@ const upload = require('../../config/fileStorage.js')
 const { checkToken } = require('../../auth/token_validation.js')
 
 // Server path
-const localhost = 'http://192.168.1.107:5000/'
+const localhost = 'http://192.168.1.106:5000/'
 const hostspot = "http://192.168.43.119/"
 
 // ------- Multipart form ----------
@@ -55,7 +55,7 @@ router.post('/upload', checkToken, multipleUpload, (req, res) => {
             quesSwelling: uploadedSwelling,
             quesOdour: uploadedOdour,
             quesFever: uploadedFever,
-            doctorAssigned: 0
+            doctorAssigned: 21
         }
 
         console.log(params)
