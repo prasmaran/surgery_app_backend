@@ -72,3 +72,14 @@ Content-Type: application/json
 # Doctor Requests #
 GET http://localhost:5000/doctor/getAllPatients/21
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2MjgyMTEyMzMsImV4cCI6MTYyODM4NDAzM30.DR-RSOqw9_hcjB0Vb8Iz549LtWeZnKkiGloNiosGqUw
+
+###
+POST http://localhost:5000/doctor/sendFeedback
+Content-Type: application/json
+
+{
+    "progressEntryID": 18,
+    "feedbackText": "Your wound looks nasty",
+    "doctorID": 21,
+    "patientName": "Prasanth"
+}
