@@ -1,4 +1,5 @@
 const express = require('express')
+const helmet = require("helmet")
 const { urlencoded } = require('body-parser')
 //const bodyParser = require('body-parser')
 const { title } = require('process')
@@ -6,6 +7,7 @@ const port = process.env.APP_PORT || 5000
 
 // Global middlware
 const app = express()
+app.use(helmet())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('images'))
@@ -41,6 +43,8 @@ app.use('/user', userMasterRoutes)
 app.use('/dummyUser', dummyUserRoutes)
 // ---------- Doctor routes ----------------
 app.use('/doctor', doctorRoutes)
+
+// localhost:5000/doctor/getFeedback/18
 
 
 app.listen(port, () => {

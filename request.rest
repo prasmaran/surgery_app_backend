@@ -28,7 +28,7 @@ Content-Type: application/json
 # Progress Book Request #
 
 GET http://localhost:5000/books/progress/getAll/15
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2MjgyMTEyMzMsImV4cCI6MTYyODM4NDAzM30.DR-RSOqw9_hcjB0Vb8Iz549LtWeZnKkiGloNiosGqUw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUHJhc2FudGgiLCJpYXQiOjE2MzQwNDEwNDgsImV4cCI6MTYzNDIxMzg0OH0.26496ofxXJmxB9zSUbdgbEOSU5mU2MCo5fEc8VceDJs
 
 ###
 GET http://localhost:5000/books/progress/getAll
@@ -83,3 +83,6 @@ Content-Type: application/json
     "doctorID": 21,
     "patientName": "Prasanth"
 }
+
+###
+GET http://localhost:5000/doctor/getFeedback/18
