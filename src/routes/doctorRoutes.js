@@ -32,7 +32,7 @@ router.get('/getAllPatients/:doctorId', (req, res) => {
         let query1 = 'SELECT user_master.m_name, user_master.m_ic, progress_book_entry.*'
         let query2 = ' FROM user_master'
         let query3 = ' INNER JOIN progress_book_entry ON user_master.m_id = progress_book_entry.masterUserId_fk'
-        let query4 = ' WHERE progress_book_entry.doctorAssigned = ?'
+        let query4 = ' WHERE progress_book_entry.doctorAssigned = ? ORDER BY dateCreated DESC'
         let finalQuery = query1 + query2 + query3 + query4
         let doctorId = parseInt(req.params.doctorId)
         //console.log(finalQuery)
