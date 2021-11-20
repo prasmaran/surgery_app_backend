@@ -13,8 +13,7 @@ const fileStorage = multer.diskStorage({
         // upload/public
         // upload/patient
         const filepath = `patient/${Date.now()}${ext}`
-        cb(
-            null, filepath)
+        cb(null, filepath)
     }
 })
 

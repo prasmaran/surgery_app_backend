@@ -101,7 +101,7 @@ router.post('/auth', async (req, res) => {
                         // to test the server blocking
                         if (await bcrypt.compare(password, results[0].password)) {
                             const user = { name: username }
-                            const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, { expiresIn: "2 days" })
+                            const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, { expiresIn: "3h" })
                             const response = `User ${results[0].m_name} successfully logged in`
                             res.send({
                                 success: true,

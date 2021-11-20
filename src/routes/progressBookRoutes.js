@@ -6,8 +6,9 @@ const upload = require('../../config/fileStorage.js')
 const { checkToken } = require('../../auth/token_validation.js')
 
 // Server path
-const localhost = 'http://192.168.1.107:5000/' // http://192.168.43.119:5000
+const localhost = 'http://192.168.1.105:5000/' // http://192.168.43.119:5000
 const hostspot = "http://192.168.43.119/"
+const pathName = __dirname.toString() + "/"
 
 // ------- Multipart form ----------
 //----------------------------------
@@ -125,6 +126,36 @@ router.get('/getAll/:userId', checkToken, (req, res) => {
     })
 })
 
+// ----- Get all archived entries by userId ---------- 
+router.get('/getAllArchived/:userId', checkToken, (req, res) => {
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+        console.log(`connection as id ${connection.threadId}`) 
+
+        // query(sqlString, callback)
+        connection.query('SELECT * FROM progress_book_entry WHERE masterUserId_fk = ? AND flag = 0 ORDER BY dateCreated DESC', [req.params.userId],(err, rows) => {
+            connection.release() // release the connection to pool
+
+            if (!err) {
+                console.log("Number of photos returned: " + Object.keys(rows).length)
+                res.send({
+                    success: true,
+                    message: "Archived entries list",  
+                    result : rows 
+                })
+            } else {
+                console.log(err)
+                res.send({
+                    success: false,
+                    message: "Could not fetch the archived list",  
+                    result : null 
+                })
+            }
+        })
+    })
+})
+
 // ------ API to Get progress entry by entryID --------
 router.get('/:entryid', (req, res) => {
 
@@ -147,7 +178,7 @@ router.get('/:entryid', (req, res) => {
 
 // -------- Edit a progress entry ------------
 var getFields = multer()
-router.put('/edit', getFields.none(), (req, res) => {
+router.put('/edit', checkToken, getFields.none(), (req, res) => {
 
     const entryID = req.body.entryID
     const updatedTitle = req.body.title
@@ -204,7 +235,7 @@ router.put('/edit', getFields.none(), (req, res) => {
 
 // ---------- Delete progress book entry by ID   ----------
 var getFieldsDelete = multer()
-router.put('/delete', getFieldsDelete.none(), (req, res) => {
+router.put('/delete', checkToken, getFieldsDelete.none(), (req, res) => {
 
     const entryID = req.body.entryID
 
