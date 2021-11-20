@@ -4,10 +4,11 @@ const { urlencoded } = require('body-parser')
 //const bodyParser = require('body-parser')
 const { title } = require('process')
 const port = process.env.APP_PORT || 5000
+const path = require('path')
 
 // Global middlware
 const app = express()
-app.use(helmet())
+// app.use(helmet())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('images'))
@@ -44,7 +45,10 @@ app.use('/dummyUser', dummyUserRoutes)
 // ---------- Doctor routes ----------------
 app.use('/doctor', doctorRoutes)
 
-// localhost:5000/doctor/getFeedback/18
+// Testing something
+app.get('/hello', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './testing/Saras.pdf'))
+})
 
 
 app.listen(port, () => {

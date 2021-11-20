@@ -21,7 +21,7 @@ const groupBy = keys => array =>
     }, {})
 
 // ----- Get all progress entry data by userId ---------- 
-router.get('/getAllPatients/:doctorId', (req, res) => {
+router.get('/getAllPatients/:doctorId', checkToken, (req, res) => {
 
     pool.getConnection((err, connection) => {
         if (err) throw err
@@ -76,7 +76,7 @@ router.get('/getAllPatients/:doctorId', (req, res) => {
 })
 
 
-router.post('/sendFeedback', (req, res) => {
+router.post('/sendFeedback', checkToken, (req, res) => {
 
     const progressEntryID = req.body.progressEntryID
     const feedbackText = req.body.feedbackText
@@ -122,7 +122,7 @@ router.post('/sendFeedback', (req, res) => {
 })
 
 // ----- Get specific feedback list by wound image entry ID ---------- 
-router.get('/getFeedback/:woundImageID', (req, res) => {
+router.get('/getFeedback/:woundImageID', checkToken, (req, res) => {
 
     pool.getConnection((err, connection) => {
         if (err) throw err
@@ -151,8 +151,5 @@ router.get('/getFeedback/:woundImageID', (req, res) => {
         })
     })
 })
-
-
-
 
 module.exports = router
