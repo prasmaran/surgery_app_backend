@@ -8,11 +8,11 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "Usain",
-    "ic_number": "12321",
+    "username": "Random",
+    "ic_number": "000999",
     "gender": "M",
-    "type": "P",
-    "password": "Usain"
+    "type": "D",
+    "password": "Random"
 }
 
 ###
@@ -71,7 +71,7 @@ Content-Type: application/json
 ############################################
 # Doctor Requests #
 GET http://localhost:5000/doctor/getAllPatients/21
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2MjgyMTEyMzMsImV4cCI6MTYyODM4NDAzM30.DR-RSOqw9_hcjB0Vb8Iz549LtWeZnKkiGloNiosGqUw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2Mzc4NTEyNzAsImV4cCI6MTYzNzg2MjA3MH0.rXDPyv2yCn2KBACmlzs-Fq4MbGk4_Gb4CEBh8ZJi2yY
 
 ###
 POST http://localhost:5000/doctor/sendFeedback
@@ -86,3 +86,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/doctor/getFeedback/18
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2Mzc4NTEyNzAsImV4cCI6MTYzNzg2MjA3MH0.rXDPyv2yCn2KBACmlzs-Fq4MbGk4_Gb4CEBh8ZJi2yY
