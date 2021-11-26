@@ -50,6 +50,7 @@ app.get('/hello', (req, res) => {
     res.sendFile(path.resolve(__dirname, './testing/Saras.pdf'))
 })
 
+// On Windows Shift + Alt + F
 
 app.listen(port, () => {
     console.log(` Server listenining on port ${port} ...`)
