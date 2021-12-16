@@ -20,15 +20,15 @@ POST http://localhost:5000/user/auth
 Content-Type: application/json
 
 {
-    "username": "Kugan",
-    "password": "Kugan"
+    "username": "Prasanth",
+    "password": "Prasanth98"
 }
 
 ##############################################
 # Progress Book Request #
 
 GET http://localhost:5000/books/progress/getAll/15
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUHJhc2FudGgiLCJpYXQiOjE2MzQwNDEwNDgsImV4cCI6MTYzNDIxMzg0OH0.26496ofxXJmxB9zSUbdgbEOSU5mU2MCo5fEc8VceDJs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUHJhc2FudGgiLCJpYXQiOjE2MzkzMDc5MzUsImV4cCI6MTYzOTMxODczNX0.Cq7Kv-_NDaGVLWcRlSG31kUy3gz_0Ed8TIXsxRuNnJc
 
 ###
 GET http://localhost:5000/books/progress/getAll
@@ -71,7 +71,7 @@ Content-Type: application/json
 ############################################
 # Doctor Requests #
 GET http://localhost:5000/doctor/getAllPatients/21
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2Mzc4NTEyNzAsImV4cCI6MTYzNzg2MjA3MH0.rXDPyv2yCn2KBACmlzs-Fq4MbGk4_Gb4CEBh8ZJi2yY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2MzkyMjcwMzksImV4cCI6MTYzOTIzNzgzOX0.ICAwh43OucGR8bpJ70cGyHC0URdy4bqvjDEt1uf7-0A
 
 ###
 POST http://localhost:5000/doctor/sendFeedback
@@ -87,3 +87,9 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/doctor/getFeedback/18
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iLCJpYXQiOjE2Mzc4NTEyNzAsImV4cCI6MTYzNzg2MjA3MH0.rXDPyv2yCn2KBACmlzs-Fq4MbGk4_Gb4CEBh8ZJi2yY
+
+###
+GET http://localhost:5000/utils/general
+Content-Type: application/json
+
+###

@@ -64,7 +64,7 @@ const dummy_user_create = (req, res) => {
         //console.log(`connection as id ${connection.threadId}`)
 
         const params = req.body
-        console.log(params)
+        //console.log(params)
 
         // query(sqlString, callback)
         connection.query('INSERT INTO users SET ?', params, (err, rows) => {
@@ -87,22 +87,26 @@ const dummy_user_update = (req, res) => {
 
     const params = req.body
     const { id, name, email, phoneNumber } = req.body
-    const paramsArray = [name, email, phoneNumber, id]
+
+    let updateDate = new Date().toISOString().slice(0, 19).replace('T', ' ')
+
+    const paramsArray = [name, email, phoneNumber, updateDate, id]
 
     pool.getConnection((err, connection) => {
         if (err) throw err
         //console.log(`connection as id ${connection.threadId}`)
-        connection.query('UPDATE users SET name = ?, email = ?, phoneNumber = ? WHERE id = ?', paramsArray, (err, rows) => {
+        connection.query('UPDATE users SET name = ?, email = ?, phoneNumber = ?, dateUpdated = ? WHERE id = ?', paramsArray, (err, rows) => {
             connection.release() // release the connection to pool
 
             if (!err) {
-                res.send(`User with record name: ${name} has been updated.`)
+                res.send(`User with record name: ${name} has been updated at ${Date()}.`)
             } else {
                 console.log(err)
             }
         })
-
+        
         console.log(req.body)
+        console.log(new Date().toISOString().slice(0, 19).replace('T', ' '))
     })
 }
 

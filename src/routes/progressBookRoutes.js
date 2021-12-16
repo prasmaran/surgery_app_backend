@@ -57,7 +57,7 @@ router.post('/upload', cloudinaryUpload, async (req, res) => {
     // Values from the form
     // testing masteruserid_fk
     const masterUserId_fk = req.body.masterUserId_fk
-    
+
     const uploadedTitle = req.body.title
     const uploadedDescription = req.body.description
     const uploadedFluidDrain = req.body.fluid_drain
@@ -79,7 +79,7 @@ router.post('/upload', cloudinaryUpload, async (req, res) => {
         quesSwelling: uploadedSwelling,
         quesOdour: uploadedOdour,
         quesFever: uploadedFever,
-        doctorAssigned: 21
+        doctorAssigned: 0
     }
 
     // Reducing image quality for performance + better storage
@@ -306,6 +306,9 @@ router.put('/edit', checkToken, getFields.none(), (req, res) => {
     const updatedFever = req.body.fever
 
     // Params to insert into MySQL table
+
+    let updatedDate = new Date().toISOString().slice(0, 19).replace('T', ' ')
+
     const paramsArray = [
         updatedTitle,
         updatedDescription,
@@ -315,6 +318,7 @@ router.put('/edit', checkToken, getFields.none(), (req, res) => {
         updatedSwelling,
         updatedOdour,
         updatedFever,
+        updatedDate,
         entryID
     ]
 
@@ -324,7 +328,7 @@ router.put('/edit', checkToken, getFields.none(), (req, res) => {
 
         if (err) throw err
 
-        let updateQuery = 'UPDATE progress_book_entry SET progressTitle = ?, progressDescription = ?, quesFluid = ?, quesPain = ?, quesRedness = ?, quesSwelling = ?, quesOdour = ?,  quesFever = ? WHERE entryID = ?'
+        let updateQuery = 'UPDATE progress_book_entry SET progressTitle = ?, progressDescription = ?, quesFluid = ?, quesPain = ?, quesRedness = ?, quesSwelling = ?, quesOdour = ?,  quesFever = ?, dateUpdated = ? WHERE entryID = ?'
 
         connection.query(updateQuery, paramsArray, (err, rows) => {
             connection.release() // release the connection to pool
@@ -363,7 +367,7 @@ router.put('/delete', checkToken, getFieldsDelete.none(), (req, res) => {
          * Archive flag - 2
          */
         const deleteFlag = 0
-        let query = `UPDATE progress_book_entry SET flag = ${deleteFlag} WHERE entryID = ?`
+        let query = `UPDATE progress_book_entry SET flag = 0 WHERE entryID = ?`
         connection.query(query, [entryID], (err, rows) => {
             connection.release() // release the connection to pool
 
@@ -389,6 +393,7 @@ var getFieldsArchive = multer()
 router.put('/archive', checkToken, getFieldsArchive.none(), (req, res) => {
 
     const entryID = req.body.entryID
+    const prevFlag = req.body.prevFlag
 
     pool.getConnection((err, connection) => {
         if (err) throw err
@@ -398,27 +403,116 @@ router.put('/archive', checkToken, getFieldsArchive.none(), (req, res) => {
          * Active flag  - 1
          * Archive flag - 2
          */
-        const archiveFlag = 2
-        let query = `UPDATE progress_book_entry SET flag = ${archiveFlag} WHERE entryID = ?`
-        connection.query(query, [entryID], (err, rows) => {
-            connection.release() // release the connection to pool
+
+        if (prevFlag == "1") {
+
+            let query = `UPDATE progress_book_entry SET flag = 2 WHERE entryID = ?`
+            connection.query(query, [entryID], (err, rows) => {
+                connection.release() // release the connection to pool
+
+                if (!err) {
+                    let response = `User with record ID: ${[entryID]} has been archived.`
+                    res.send({
+                        success: true,
+                        message: response
+                    })
+                    console.log(response)
+                } else {
+                    res.send({
+                        success: false,
+                        message: err.message
+                    })
+                }
+            })
+        } else {
+
+            //archiveFlag = 1
+
+            let query = `UPDATE progress_book_entry SET flag = 1 WHERE entryID = ?`
+            connection.query(query, [entryID], (err, rows) => {
+                connection.release() // release the connection to pool
+
+                if (!err) {
+                    let response = `User with record ID: ${[entryID]} has been restored.`
+                    res.send({
+                        success: true,
+                        message: response
+                    })
+                    console.log(response)
+                } else {
+                    res.send({
+                        success: false,
+                        message: err.message
+                    })
+                }
+            })
+        }
+
+    })
+})
+
+
+/**
+ * Delete progress book only if
+ * the selected entry has no feedback
+ * from any doctors
+ * CHECK wound_feedback_table before deleting
+ * 
+ *  UPDATE progress_book_entry SET progress_book_entry.flag = 0
+    WHERE progress_book_entry.entryID = 18
+    AND EXISTS (SELECT 1 FROM wound_image_feedback WHERE wound_image_feedback.progress_entry_id = 18)
+ */
+var getDeleteEntryNoFeedback = multer()
+router.put('/deleteEntryNoFeedback', getDeleteEntryNoFeedback.none(), (req, res) => {
+
+    const entryID = req.body.entryID
+    const entryID_Int = parseInt(entryID)
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+        console.log(`connection as id ${connection.threadId}`)
+
+        // query(sqlString, callback)
+        // https://www.mysqltutorial.org/mysql-inner-join.aspx
+        let query1 = 'UPDATE progress_book_entry SET progress_book_entry.flag = 0'
+        let query2 = ' WHERE progress_book_entry.entryID = ?'
+        let query3 = ' AND EXISTS ( SELECT 1 FROM wound_image_feedback WHERE wound_image_feedback.progress_entry_id = ? )'
+        let q4 = `UPDATE progress_book_entry SET progress_book_entry.flag = 0 WHERE progress_book_entry.entryID = ${entryID_Int} AND NOT EXISTS (SELECT 1 FROM wound_image_feedback WHERE wound_image_feedback.progress_entry_id = ${entryID_Int})`
+        let finalQuery = query1 + query2 + query3
+
+        //console.log(finalQuery)
+        connection.query(q4, (err, rows) => {
+            connection.release()
 
             if (!err) {
-                let response = `User with record ID: ${[entryID]} has been archived.`
-                res.send({
-                    success: true,
-                    message: response
-                })
-                console.log(response)
+
+                console.log(rows)
+
+                if (rows.affectedRows > 0) {
+
+                    res.send({
+                        success: true,
+                        message: `Successfully deleted Image ID: ${entryID} from the list`
+                    })
+
+                } else {
+
+                    res.send({
+                        success: false,
+                        message: `Cannot delete because it has feedback from your doctor`
+                    })
+                }
+
             } else {
+                console.log(err)
                 res.send({
                     success: false,
-                    message: err.message
+                    message: err,
+                    result: null
                 })
             }
         })
     })
 })
-
 
 module.exports = router
