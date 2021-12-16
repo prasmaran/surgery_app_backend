@@ -1,9 +1,11 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
+const multer = require('multer')
 const router = express.Router()
 const pool = require('../../config/config.js')
 const { userCreateLogger, userLoginLogger } = require('../../config/loggerUpdated.js')
 const jwt = require('jsonwebtoken')
+const { checkToken } = require('../../auth/token_validation.js')
 
 // ---------- Regitser User ----------------
 /**
@@ -54,7 +56,7 @@ router.post('/register', async (req, res) => {
                         })
                         console.log(rows)
                         userCreateLogger.info(response)
-                    } else {            
+                    } else {
                         console.log(err)
                         res.send({
                             success: false,
@@ -120,7 +122,7 @@ router.post('/auth', async (req, res) => {
                                 result: err
                             })
                             userLoginLogger.error(response)
-                            
+
                         }
                     } else {
                         //logger.log(`error`,`Username or Registration ID not found`)
@@ -164,6 +166,51 @@ router.get('/getAll', (req, res) => {
             }
         })
     })
+})
+
+// ------- Update User Contact Number -----
+// ----------------------------------------
+var updatePhoneNumber = multer()
+router.put('/update_phone_number', checkToken, updatePhoneNumber.none(), (req, res) => {
+
+    const userContact1 = req.body.userContact1
+    const userContact2 = req.body.userContact2
+    const userID = req.body.userID
+
+    const updatedDate = new Date().toISOString().slice(0, 19).replace('T', ' ')
+
+    const paramsArray = [
+        userContact1,
+        userContact2,
+        updatedDate,
+        userID
+    ]
+
+    console.log(paramsArray)
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err
+
+        let query = 'UPDATE user_master SET m_contact1 = ?, m_contact2 = ?, updated_at = ? WHERE m_id = ?'
+        connection.query(query, paramsArray,(err, rows) => {
+            connection.release() // release the connection to pool
+
+            if (!err) {
+                res.send({
+                    success: true,
+                    message: "Details have been updated successfully!"
+                })
+                //console.log(rows)
+            } else {
+                res.send({
+                    success: false,
+                    message: "Update failed. Please try again later!"
+                })
+                console.log(err)
+            }
+        })
+    })
+
 })
 
 module.exports = router
