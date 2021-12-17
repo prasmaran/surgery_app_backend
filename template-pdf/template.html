@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+</head>
+
+<body>
+
+    <h1>Patient ID: {{patientId}} Details</h1>
+
+    <p style="text-align:center;"><img src={{image}} alt="Logo" width="500" height="600"></p>
+
+    <!-- <h2>Progress Book Title : {{title}}</h2>
+    <h2>Progress Book Description : {{description}}</h2>
+    <h2>Wound Pain Rate : {{painRate}}</h2>
+    <h2>Progress Date Created : {{dateCreated}}</h2> -->
+
+    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+    <h2 style="color: #2e6c80;">Wound Details:</h2>
+    <table style="width:100%">
+        <thead>
+            <tr style="height: 18px;">
+                <td style="height: 18px; width: 240px;"><strong style="color: blue;">ASPECTS</strong></td>
+                <td style="height: 18px; width: 374px;"><strong style="color: blue;">FURTHER INFORMATION</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="height: 22px;">
+                <td style="height: 22px; width: 240px;">Wound Title</td>
+                <td style="height: 22px; width: 374px;">{{title}}</td>
+            </tr>
+            <tr style="height: 22px;">
+                <td style="height: 22px; width: 240px;">Wound Description</td>
+                <td style="height: 22px; width: 374px;">{{description}}</td>
+            </tr>
+            <tr style="height: 22px;">
+                <td style="height: 22px; width: 240px;">Wound Pai Rate</td>
+                <td style="height: 22px; width: 374px;">{{painRate}}</td>
+            </tr>
+            <tr style="height: 22px;">
+                <td style="height: 22px; width: 240px;">Image Uploaded Date</td>
+                <td style="height: 22px; width: 374px;">{{dateCreated}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>

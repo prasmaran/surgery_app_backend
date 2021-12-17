@@ -5,7 +5,12 @@ const multer = require('multer')
 module.exports = multer({
     storage: multer.diskStorage({}),
     fileFilter(req, file, cb) {
-        let extTypes = [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"]
+
+        /**
+         * Added extension for PDF uploader
+         */
+
+        let extTypes = [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".pdf", ".PDF"]
         let ext = path.extname(file.originalname)
         if (!extTypes.includes(ext)) {
             cb(new Error("File type is not supported"), false)
