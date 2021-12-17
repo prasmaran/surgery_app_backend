@@ -28,7 +28,7 @@ Content-Type: application/json
 # Progress Book Request #
 
 GET http://localhost:5000/books/progress/getAll/15
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUHJhc2FudGgiLCJpYXQiOjE2MzkzMDc5MzUsImV4cCI6MTYzOTMxODczNX0.Cq7Kv-_NDaGVLWcRlSG31kUy3gz_0Ed8TIXsxRuNnJc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUHJhc2FudGgiLCJpYXQiOjE2Mzk2Njc0MDksImV4cCI6MTYzOTY3ODIwOX0.rH9y_NXgsBJvExBQHWiJfGtLuIbg5Ge1mPUKEUz2vO8
 
 ###
 GET http://localhost:5000/books/progress/getAll
@@ -90,6 +90,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS3VnYW4iL
 
 ###
 GET http://localhost:5000/utils/general
+Content-Type: application/json
+
+###
+GET http://localhost:5000/utils/getPdf/79
 Content-Type: application/json
 
 ###

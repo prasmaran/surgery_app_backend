@@ -23,6 +23,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "mysql": "^2.18.1",
     "node-cron": "^3.0.0",
+    "pdf-creator-node": "^2.2.4",
     "pdfkit": "^0.13.0",
     "sharp": "^0.29.3",
     "winston": "^3.3.3",
