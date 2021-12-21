@@ -1,4 +1,4 @@
-const pool = require('../../config/config.js')
+const pool = require('../../config/dbConfig.js')
 
 const dummy_user_getAll = (req, res) => {
 
@@ -105,8 +105,8 @@ const dummy_user_update = (req, res) => {
             }
         })
         
-        console.log(req.body)
-        console.log(new Date().toISOString().slice(0, 19).replace('T', ' '))
+        //console.log(req.body)
+        //console.log(new Date().toISOString().slice(0, 19).replace('T', ' '))
     })
 }
 
