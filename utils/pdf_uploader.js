@@ -28,11 +28,14 @@ const uploadPDFCloudinary = function (file) {
 
 const uploadPDF_v2 = (pdf) => {
     return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(pdf, (err, url) => {
-            if (err) return reject(err);
-            console.log(`Second method: ${url.secure_url}`)
-            return resolve(url.secure_url);
-        })
+        cloudinary.uploader.upload(
+            pdf,
+            { upload_preset: 'patient_pdf' },
+            (err, url) => {
+                if (err) return reject(err);
+                console.log(`Second method: ${url.secure_url}`)
+                return resolve(url.secure_url);
+            })
     });
 }
 

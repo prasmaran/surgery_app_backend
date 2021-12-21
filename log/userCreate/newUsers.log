@@ -14,3 +14,5 @@
 21-08-2021 21:18:59 info: New user details with {name: Kavi and ID: 28} has been added.
 21-08-2021 21:22:00 info: New user details with {name: Kavi and ID: 29} has been added.
 26-11-2021 17:02:54 info: New user details with {name: Random and ID: 30} has been added.
+19-12-2021 16:46:56 error: ER_NO_DEFAULT_FOR_FIELD: Field 'm_contact1' doesn't have a default value for User: TestingController
+19-12-2021 16:48:47 info: New user details with {name: TestingController and ID: 32} has been added.

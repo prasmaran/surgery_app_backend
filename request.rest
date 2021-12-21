@@ -97,3 +97,10 @@ GET http://localhost:5000/utils/getPdf/79
 Content-Type: application/json
 
 ###
+
+###
+GET http://localhost:5000/researcher/getAllPatients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUHJhc2FudGgiLCJpYXQiOjE2Mzk3NTk3ODMsImV4cCI6MTYzOTc3MDU4M30.VWG-9uUbUdllfUoPH1SSJx-z-jl1SZc88zWQNLfF3-Y
+
+
+###
