@@ -29,9 +29,7 @@ const generate_and_upload = (patientData) => {
 				painRate: patientData.quesPain,
 				dateCreated: String(patientData.dateCreated),
 			},
-			path: `./images/pdf_generated/${
-				patientData.entryID
-			}-${Date.now()}-${patientData.masterUserId_fk}.pdf`,
+			path: `./images/pdf_generated/${patientData.entryID}-${Date.now()}-${patientData.masterUserId_fk}.pdf`,
 		};
 		pdf.create(document, options)
 			.then(async (res) => {
