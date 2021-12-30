@@ -1,54 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Patient Details</title>
+		<style>
+			#patients {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: larger;
+				font-weight: bold;
+				border-collapse: collapse;
+				width: 100%;
+			}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Details</title>
-</head>
+			#patients td,
+			#patients th {
+				border: 2px solid #ddd;
+				padding: 8px;
+				margin: 8px;
+			}
 
-<body>
+			#patients tr {
+				background-color: #f2f2f2;
+			}
 
-    <h1>Patient ID: {{patientId}} Details</h1>
+			#patients tr:hover {
+				background-color: #ddd;
+			}
 
-    <p style="text-align:center;"><img src={{image}} alt="Logo" width="500" height="600"></p>
+			#patients th {
+				padding-top: 12px;
+				padding-bottom: 12px;
+				text-align: left;
+				background-color: #5107b1;
+				color: white;
+			}
+		</style>
+	</head>
 
-    <!-- <h2>Progress Book Title : {{title}}</h2>
+	<body>
+		<p>&nbsp;</p>
+		<h1 style="text-align: center; color: #5107b1; font-weight: 900">Patient ID {{patientId}} Details</h1>
+		<p style="text-align: center">
+			<img
+				style="border-radius: 10px; padding: 5px; border: 1px solid #000"
+				src="{{image}}"
+				width="350"
+				height="300"
+			/>&nbsp;
+		</p>
+		<!-- <h2>Progress Book Title : {{title}}</h2>
     <h2>Progress Book Description : {{description}}</h2>
     <h2>Wound Pain Rate : {{painRate}}</h2>
     <h2>Progress Date Created : {{dateCreated}}</h2> -->
-
-    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
-    <h2 style="color: #2e6c80;">Wound Details:</h2>
-    <table style="width:100%">
-        <thead>
-            <tr style="height: 18px;">
-                <td style="height: 18px; width: 240px;"><strong style="color: blue;">ASPECTS</strong></td>
-                <td style="height: 18px; width: 374px;"><strong style="color: blue;">FURTHER INFORMATION</strong></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="height: 22px;">
-                <td style="height: 22px; width: 240px;">Wound Title</td>
-                <td style="height: 22px; width: 374px;">{{title}}</td>
-            </tr>
-            <tr style="height: 22px;">
-                <td style="height: 22px; width: 240px;">Wound Description</td>
-                <td style="height: 22px; width: 374px;">{{description}}</td>
-            </tr>
-            <tr style="height: 22px;">
-                <td style="height: 22px; width: 240px;">Wound Pai Rate</td>
-                <td style="height: 22px; width: 374px;">{{painRate}}</td>
-            </tr>
-            <tr style="height: 22px;">
-                <td style="height: 22px; width: 240px;">Image Uploaded Date</td>
-                <td style="height: 22px; width: 374px;">{{dateCreated}}</td>
-            </tr>
-
-        </tbody>
-    </table>
-
-</body>
-
+		<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+		<h2 style="color: #5107b1; font-weight: bolder">&nbsp;WOUND DETAILS OF PATIENT ID : {{patientId}}:</h2>
+		<table id="patients">
+			<tr>
+				<th>Wound Image Details</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td>Wound Title</td>
+				<td>{{title}}</td>
+			</tr>
+			<tr>
+				<td>Wound Description</td>
+				<td>{{description}}</td>
+			</tr>
+			<tr>
+				<td>Wound Pain Rate</td>
+				<td>{{painRate}}</td>
+			</tr>
+			<tr>
+				<td>Wound Image Date Created</td>
+				<td>{{dateCreated}}</td>
+			</tr>
+		</table>
+	</body>
 </html>

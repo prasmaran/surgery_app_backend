@@ -3,5 +3,5 @@
 /images
 .env
 .vscode
-/log
 /testing 
+/log
