@@ -1,8 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const pool = require('../../config/dbConfig.js')
-const { checkToken } = require('../../auth/token_validation.js')
-const { doctor_get_allPatients, doctor_post_feedback, doctor_get_wound_feedback } = require('../controllers/doctorCOntroller.js')
+const express = require("express");
+const router = express.Router();
+const pool = require("../../config/dbConfig.js");
+const { checkToken } = require("../../auth/token_validation.js");
+const {
+	doctor_get_allPatients,
+	doctor_post_feedback,
+	doctor_get_wound_feedback,
+} = require("../controllers/doctorController.js");
 
 /**
  * Routes to create
@@ -15,16 +19,16 @@ const { doctor_get_allPatients, doctor_post_feedback, doctor_get_wound_feedback 
 /**
  * Get all assigned patients by doctor ID
  */
-router.get('/getAllPatients/:doctorId', checkToken, doctor_get_allPatients)
+router.get("/getAllPatients/:doctorId", checkToken, doctor_get_allPatients);
 
 /**
  * Post feedback to patients
  */
-router.post('/sendFeedback', checkToken, doctor_post_feedback)
+router.post("/sendFeedback", checkToken, doctor_post_feedback);
 
 /**
  * Retrieve feedback by wound image ID
  */
-router.get('/getFeedback/:woundImageID', checkToken, doctor_get_wound_feedback)
+router.get("/getFeedback/:woundImageID", checkToken, doctor_get_wound_feedback);
 
-module.exports = router
+module.exports = router;
