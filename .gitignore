@@ -3,5 +3,7 @@
 /images
 .env
 .vscode
-/testing 
-/log
+/testing
+/log/auth/login.log
+/log/server/info.log
+/log/userCreate/newUsers.log
