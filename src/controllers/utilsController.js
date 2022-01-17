@@ -76,7 +76,6 @@ const utils_get_appointments = (req, res) => {
 			let query4 = " WHERE appointment.patient_id = ?";
 			let query5 = " ORDER BY appointment.appointment_date";
 			finalQuery = query1 + query2 + query3 + query4 + query5;
-			// query = `SELECT * FROM appointment WHERE patient_id = ${userID} ORDER BY appointment_date DESC`;
 		} else {
 			let query1 = "SELECT user_master.m_name AS with_name, user_master.m_ic, appointment.*";
 			let query2 = " FROM appointment";
@@ -84,13 +83,11 @@ const utils_get_appointments = (req, res) => {
 			let query4 = " WHERE appointment.doctor_id = ?";
 			let query5 = " ORDER BY appointment.appointment_date";
 			finalQuery = query1 + query2 + query3 + query4 + query5;
-			finalQuery = query1 + query2 + query3 + query4 + query5;
-			// query = `SELECT * FROM appointment WHERE patient_id = ${userID} ORDER BY appointment_date DESC`;
 		}
 
 		let userID_Int = parseInt(userID);
 		connection.query(finalQuery, userID_Int, (err, rows) => {
-			connection.release(); // release the connection to pool
+			connection.release();
 
 			if (!err) {
 				if (rows.length > 0) {
