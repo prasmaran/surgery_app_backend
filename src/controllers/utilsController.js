@@ -61,7 +61,64 @@ const utils_get_generated_wound_pdf = async (req, res) => {
 	});
 };
 
+const utils_get_appointments = (req, res) => {
+	const userType = req.params.userType;
+	const userID = req.params.userID;
+	let finalQuery;
+
+	pool.getConnection((err, connection) => {
+		if (err) throw err;
+
+		if (userType == "P") {
+			let query1 = "SELECT user_master.m_name AS with_name, user_master.m_ic, appointment.*";
+			let query2 = " FROM appointment";
+			let query3 = " INNER JOIN user_master ON user_master.m_id = appointment.doctor_id";
+			let query4 = " WHERE appointment.patient_id = ?";
+			let query5 = " ORDER BY appointment.appointment_date";
+			finalQuery = query1 + query2 + query3 + query4 + query5;
+			// query = `SELECT * FROM appointment WHERE patient_id = ${userID} ORDER BY appointment_date DESC`;
+		} else {
+			let query1 = "SELECT user_master.m_name AS with_name, user_master.m_ic, appointment.*";
+			let query2 = " FROM appointment";
+			let query3 = " INNER JOIN user_master ON user_master.m_id = appointment.patient_id";
+			let query4 = " WHERE appointment.doctor_id = ?";
+			let query5 = " ORDER BY appointment.appointment_date";
+			finalQuery = query1 + query2 + query3 + query4 + query5;
+			finalQuery = query1 + query2 + query3 + query4 + query5;
+			// query = `SELECT * FROM appointment WHERE patient_id = ${userID} ORDER BY appointment_date DESC`;
+		}
+
+		let userID_Int = parseInt(userID);
+		connection.query(finalQuery, userID_Int, (err, rows) => {
+			connection.release(); // release the connection to pool
+
+			if (!err) {
+				if (rows.length > 0) {
+					res.send({
+						success: true,
+						message: "Your current appointments",
+						result: rows,
+					});
+				} else {
+					res.send({
+						success: false,
+						message: "No appointments",
+						result: rows,
+					});
+				}
+			} else {
+				res.send({
+					success: false,
+					message: "Failed to fetch",
+					result: err,
+				});
+			}
+		});
+	});
+};
+
 module.exports = {
 	utils_get_general_articles,
 	utils_get_generated_wound_pdf,
+	utils_get_appointments,
 };
