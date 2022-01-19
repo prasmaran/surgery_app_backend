@@ -111,7 +111,6 @@ const user_master_auth = async (req, res) => {
 									// return only the first user object
 								});
 								userLoginLogger.info(response);
-								console.log(results);
 							} else {
 								const response = `User ${results[0].m_name} with wrong password combination`;
 								res.send({
