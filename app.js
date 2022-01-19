@@ -2,7 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const { urlencoded } = require("body-parser");
 const { title } = require("process");
-const port = process.env.APP_PORT || 5000;
+const port = process.env.PORT || 5000;
 const path = require("path");
 
 // Import cron job functions

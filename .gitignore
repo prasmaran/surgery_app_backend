@@ -7,3 +7,4 @@
 /log/auth/login.log
 /log/server/info.log
 /log/userCreate/newUsers.log
+/*.log
