@@ -20,6 +20,25 @@ const { deleteCloudImagesCronJob } = require("../utils/deleteCloudinaryImages.js
  */
 
 /**
+ * Cron job to keep the server alive
+ * by sending simple request every 20 minutes
+ * to Heroku OR Education Host
+ */
+const keepServerAlive = function () {
+	pool.getConnection((err, connection) => {
+		if (err) throw err;
+		let query = "SELECT * FROM users";
+		connection.query(query, (err, rows) => {
+			connection.release();
+			if (!err) {
+			} else {
+				console.log(err);
+			}
+		});
+	});
+};
+
+/**
  * Cron job to schedule the
  * progress_entry_book deletion of flag == 0
  * every day at 3.33a.m.
@@ -120,9 +139,24 @@ const doCronTask = () =>
 		{ timezone: "Asia/Kuala_Lumpur" }
 	);
 
+/**
+ * Send simple request to
+ * keep servers alive
+ * every 20 minutes
+ */
+const doCronKeepServerAlive = () =>
+	cron.schedule(
+		"*/20 * * * *",
+		() => {
+			keepServerAlive();
+		},
+		{ timezone: "Asia/Kuala_Lumpur" }
+	);
+
 module.exports = {
 	doCronTask,
 	doCronUnlinkFiles,
 	doCronDeleteCloudinaryPDF,
 	doCronDeleteCloudinaryImages,
+	doCronKeepServerAlive,
 };

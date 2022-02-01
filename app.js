@@ -11,6 +11,7 @@ const {
 	doCronUnlinkFiles,
 	doCronDeleteCloudinaryPDF,
 	doCronDeleteCloudinaryImages,
+	doCronKeepServerAlive,
 } = require("./config/cron.js");
 
 // Global middlware
@@ -70,12 +71,14 @@ app.use("/researcher", researcherRoutes);
  * 2. Deleting PDFs from the server
  * 3. Deleting Images from the server
  * 4. Automating deleting DB rows
+ * 5. Keep server alive for every 20 minutes
  */
 
 doCronDeleteCloudinaryPDF();
 doCronUnlinkFiles();
 doCronDeleteCloudinaryImages();
 doCronTask();
+doCronKeepServerAlive();
 
 app.listen(port, () => {
 	console.log(` Server listenining on port ${port} ...`);
