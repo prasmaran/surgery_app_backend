@@ -31,6 +31,7 @@ const keepServerAlive = function () {
 		connection.query(query, (err, rows) => {
 			connection.release();
 			if (!err) {
+				console.log("Successfully woke up server");
 			} else {
 				console.log(err);
 			}
@@ -146,7 +147,7 @@ const doCronTask = () =>
  */
 const doCronKeepServerAlive = () =>
 	cron.schedule(
-		"*/20 * * * *",
+		"*/15 * * * *",
 		() => {
 			keepServerAlive();
 		},
