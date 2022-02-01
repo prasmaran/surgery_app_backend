@@ -78,7 +78,7 @@ doCronDeleteCloudinaryPDF();
 doCronUnlinkFiles();
 doCronDeleteCloudinaryImages();
 doCronTask();
-doCronKeepServerAlive();
+//doCronKeepServerAlive();
 
 app.listen(port, () => {
 	console.log(` Server listenining on port ${port} ...`);
