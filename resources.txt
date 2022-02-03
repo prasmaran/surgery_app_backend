@@ -1,2 +1,18 @@
 HTTP Status Codes:
 https://www.restapitutorial.com/httpstatuscodes.html
+
+
+
+Heroku
+
+DB_HOST_REMOTE = 194.163.35.201
+DB_USER_REMOTE = u241363627_pras9999
+DB_PASS_REMOTE = Pras9999
+MYSQL_DB_REMOTE = u241363627_nodecrudapp
+
+Education Host
+
+DB_HOST_REMOTE	185.11.204.104	
+DB_PASS_REMOTE	Pras9999
+DB_USER_REMOTE	smvnjlye_pras9999
+MYSQL_DB_REMOTE	smvnjlye_nodecruapp
