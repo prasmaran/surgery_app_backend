@@ -27,7 +27,7 @@
     "pdfkit": "^0.13.0",
     "sharp": "^0.29.3",
     "twilio": "^3.72.0",
-    "winston": "^3.3.3",
+    "winston": "^3.5.1",
     "winston-mongodb": "^5.0.7"
   },
   "devDependencies": {
