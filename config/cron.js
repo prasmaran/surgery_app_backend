@@ -49,7 +49,7 @@ const cronJob = function () {
 		if (err) throw err;
 		console.log(`connection as id ${connection.threadId}`);
 
-		// DELETE FROM products WHERE product_id=1;
+		// DELETE FROM progress_book_entry  WHERE flag = 0
 		let title = "WILL BE DELETED BY CRON";
 		let query = "UPDATE progress_book_entry SET progressDescription = ? WHERE flag = 0";
 		connection.query(query, title, (err, rows) => {
