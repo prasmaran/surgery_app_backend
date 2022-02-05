@@ -100,7 +100,7 @@ const user_master_auth = async (req, res) => {
 							if (await bcrypt.compare(password, results[0].password)) {
 								const user = { name: username };
 								const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {
-									expiresIn: "10s",
+									expiresIn: "1h",
 								});
 								const response = `User ${results[0].m_name} successfully logged in`;
 								res.send({
