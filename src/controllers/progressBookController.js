@@ -183,7 +183,7 @@ const progress_book_get_all = (req, res) => {
         console.log(`connection as id ${connection.threadId}`)
 
         // query(sqlString, callback)
-        connection.query('SELECT * FROM progress_book_entry WHERE masterUserId_fk = ? AND flag = 1 ORDER BY dateCreated DESC', [req.params.userId], (err, rows) => {
+        connection.query('SELECT * FROM progress_book_entry WHERE masterUserId_fk = ? AND flag = 1 ORDER BY dateUpdated DESC', [req.params.userId], (err, rows) => {
             connection.release() // release the connection to pool
 
             if (!err) {
