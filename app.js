@@ -4,16 +4,16 @@ const { urlencoded } = require("body-parser");
 const { title } = require("process");
 const port = process.env.PORT || 5000;
 const path = require("path");
+require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 // Import cron job functions
-// Changingggg
 const {
-	doCronTask,
-	doCronUnlinkFiles,
-	doCronDeleteCloudinaryPDF,
-	doCronDeleteCloudinaryImages,
-	doCronKeepServerAlive,
+  doCronTask,
+  doCronUnlinkFiles,
+  doCronDeleteCloudinaryPDF,
+  doCronDeleteCloudinaryImages,
+  doCronKeepServerAlive,
 } = require("./config/cron.js");
 
 // Global middlware
@@ -38,18 +38,18 @@ const researcherRoutes = require("./src/routes/researcherRoutes.js");
 const { serverLogger } = require("./config/loggerUpdated.js");
 
 app.get("/", (req, res) => {
-	res.render("home");
+  res.render("home");
 });
 
 // about page
 app.get("/about", (req, res) => {
-	res.render("pages/about");
+  res.render("pages/about");
 });
 
 app.get("/upload", (req, res) => {
-	const filePath = __dirname;
-	console.log(filePath);
-	res.render("upload");
+  const filePath = __dirname;
+  console.log(filePath);
+  res.render("upload");
 });
 
 /**
@@ -80,27 +80,25 @@ doCronDeleteCloudinaryPDF();
 doCronUnlinkFiles();
 doCronDeleteCloudinaryImages();
 doCronTask();
-//doCronKeepServerAlive();
 
-// app.listen(port, () => {
-// 	console.log(` Server listenining on port ${port} ...`);
-// 	serverLogger.info(`Server listenining on port ${port} at ${new Date()}`);
-// });
+async function startServer() {
+  let client;
 
+  try {
+    // connect to MongoDB
+    client = await MongoClient.connect(process.env.MONGODB);
+    console.log("Connected to MongoDB");
 
-// Editing to trigger the deployment
-MongoClient.connect(process.env.MONGODB, (err, client) => {
-	if (err) {
-		console.log("Error connecting to MongoDB:", err);
-		return;
-	}
-	console.log("Connected to MongoDB");
+    const db = client.db();
 
-	const db = client.db();
-	
-	// Start server after successful MongoDB connection
-	app.listen(port, () => {
-		console.log(` Server listening on port ${port} ...`);
-		serverLogger.info(`Server listening on port ${port} at ${new Date()}`);
-	});
-});
+    // Start server after successful MongoDB connection
+    app.listen(port, () => {
+      console.log(` Server listening on port ${port} ...`);
+      serverLogger.info(`Server listening on port ${port} at ${new Date()}`);
+    });
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
+}
+
+startServer();
