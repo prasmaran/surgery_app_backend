@@ -4,6 +4,7 @@ const { urlencoded } = require("body-parser");
 const { title } = require("process");
 const port = process.env.PORT || 5000;
 const path = require("path");
+const { MongoClient } = require("mongodb");
 
 // Import cron job functions
 // Changingggg
@@ -81,7 +82,23 @@ doCronDeleteCloudinaryImages();
 doCronTask();
 //doCronKeepServerAlive();
 
-app.listen(port, () => {
-	console.log(` Server listenining on port ${port} ...`);
-	serverLogger.info(`Server listenining on port ${port} at ${new Date()}`);
+// app.listen(port, () => {
+// 	console.log(` Server listenining on port ${port} ...`);
+// 	serverLogger.info(`Server listenining on port ${port} at ${new Date()}`);
+// });
+
+MongoClient.connect(process.env.MONGODB, (err, client) => {
+	if (err) {
+		console.log("Error connecting to MongoDB:", err);
+		return;
+	}
+	console.log("Connected to MongoDB");
+
+	const db = client.db();
+	
+	// Start server after successful MongoDB connection
+	app.listen(port, () => {
+		console.log(` Server listening on port ${port} ...`);
+		serverLogger.info(`Server listening on port ${port} at ${new Date()}`);
+	});
 });
