@@ -41,11 +41,6 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-// about page
-app.get("/about", (req, res) => {
-  res.render("pages/about");
-});
-
 app.get("/upload", (req, res) => {
   const filePath = __dirname;
   console.log(filePath);
