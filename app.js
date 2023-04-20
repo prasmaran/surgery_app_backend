@@ -41,6 +41,11 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+// Serve favicon.ico
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "favicon.ico"));
+});
+
 app.get("/upload", (req, res) => {
   const filePath = __dirname;
   console.log(filePath);
