@@ -1,7 +1,7 @@
 require("dotenv").config();
 const pool = require("../../config/dbConfig.js");
 const bcrypt = require("bcrypt");
-const { userCreateLogger, userLoginLogger } = require("../../config/loggerUpdated.js");
+//const { userCreateLogger, userLoginLogger } = require("../../config/loggerUpdated.js");
 const jwt = require("jsonwebtoken");
 const twilio = require("twilio");
 
@@ -52,14 +52,14 @@ const user_master_register = async (req, res) => {
 							message: response,
 						});
 						console.log(rows);
-						userCreateLogger.info(response);
+						//userCreateLogger.info(response);
 					} else {
 						console.log(err);
 						res.send({
 							success: false,
 							message: `Error: ${err.sqlMessage} found. Please try again.`,
 						});
-						userCreateLogger.error(`${err.message} for User: ${username}`);
+						//userCreateLogger.error(`${err.message} for User: ${username}`);
 					}
 				});
 			});
@@ -110,7 +110,7 @@ const user_master_auth = async (req, res) => {
 									accessToken: accessToken,
 									// return only the first user object
 								});
-								userLoginLogger.info(response);
+								//userLoginLogger.info(response);
 							} else {
 								const response = `User ${results[0].m_name} with wrong password combination`;
 								res.send({
@@ -118,7 +118,7 @@ const user_master_auth = async (req, res) => {
 									message: `Incorrect Username or Password`,
 									result: err,
 								});
-								userLoginLogger.error(response);
+								//userLoginLogger.error(response);
 							}
 						} else {
 							//logger.log(`error`,`Username or Registration ID not found`)
