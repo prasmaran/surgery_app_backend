@@ -34,7 +34,7 @@ const utilsRoutes = require("./src/routes/utilsRoutes.js");
 const researcherRoutes = require("./src/routes/researcherRoutes.js");
 
 // Logger config
-// const { serverLogger } = require("./config/loggerUpdated.js");
+const { serverLogger } = require("./config/loggerUpdated.js");
 
 app.get("/", (req, res) => {
 	res.render("home");
@@ -83,5 +83,5 @@ doCronTask();
 
 app.listen(port, () => {
 	console.log(` Server listenining on port ${port} ...`);
-	// serverLogger.info(`Server listenining on port ${port} at ${new Date()}`);
+	serverLogger.info(`Server listenining on port ${port} at ${new Date()}`);
 });
